@@ -4,13 +4,13 @@ import * as vscode from 'vscode';
 
 export function activate(context: vscode.ExtensionContext) {
 
-    let previewUri = vscode.Uri.parse('html-escape://cfjedimaster/html-escape');
+    let previewUri = vscode.Uri.parse('TS2Snippet://carlosrubio/TS2Snippet');
 
     class TextDocumentContentProvider implements vscode.TextDocumentContentProvider {
         private _onDidChange = new vscode.EventEmitter<vscode.Uri>();
 
         public provideTextDocumentContent(uri: vscode.Uri): string {
-            return this.createEscapedHtml();
+            return this.createTSSnippet();
         }
 
         get onDidChange(): vscode.Event<vscode.Uri> {
@@ -21,17 +21,17 @@ export function activate(context: vscode.ExtensionContext) {
             this._onDidChange.fire(uri);
         }
 
-        private createEscapedHtml() {
+        private createTSSnippet() {
             let editor = vscode.window.activeTextEditor;
-            return this.extractSnippet();
+            return this.extractFragment();
         }
 
-        private extractSnippet(): string {
+        private extractFragment(): string {
             let editor = vscode.window.activeTextEditor;
 			//if we have a selection, use that, otherwise, whole document
 			console.log('is it empty? '+editor.selection.isEmpty);
 			if(editor.selection.isEmpty) {
-	            return this.snippet(editor.document.getText());
+	            return this.fragment(editor.document.getText());
 			} else {
 				console.log('return selection');
 				//there must be a better way of doing this
@@ -48,20 +48,21 @@ export function activate(context: vscode.ExtensionContext) {
                 </body>`;
         }
 
-        private snippet(str): string {
+        private fragment(str): string {
 
             str = str.replace(/&/g, "&amp;");
             str = str.replace(/</g, "&lt;");
             str = str.replace(/>/g, "&gt;");
-            str = str.replace(/"/g, "&quot;");
+            //str = str.replace(/"/g, "&quot;");
             str = str.replace(/'/g, "&#x27;");
             str = str.replace(/\//g, "&#x2F;");
+            str = str.replace(\",'/\");
 			
 			//Required since we're rendering in HTML itself...
 			str = str.replace(/&/g, "&amp;");
 
 			return `
-			<body><h1>Escaped HTML</h1>
+			<body><h1>TS Snippet</h1>
 			<textarea style='width:100%;height:100%'>${str}</textarea>
 			</body>
 			`
@@ -69,7 +70,7 @@ export function activate(context: vscode.ExtensionContext) {
     }
 
     let provider = new TextDocumentContentProvider();
-    let registration = vscode.workspace.registerTextDocumentContentProvider('html-escape', provider);
+    let registration = vscode.workspace.registerTextDocumentContentProvider('TS2Snippet', provider);
 
     vscode.workspace.onDidChangeTextDocument((e: vscode.TextDocumentChangeEvent) => {
         if (e.document === vscode.window.activeTextEditor.document) {
