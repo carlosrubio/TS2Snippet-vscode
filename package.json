@@ -1,19 +1,19 @@
 {
-    "name": "htmlescape-vscode-extension",
-    "displayName": "Escape HTML code",
-    "description": "Allows you to quickly convert HTML/JS/CSS code for publication on a blog.",
+    "name": "TS2Snippet-vscode-extension",
+    "displayName": "Convert to Snippet Body TS source code",
+    "description": "Allows you to quickly convert TS code for usage at VS Code user snippets.",
     "version": "0.0.3",
-    "publisher": "raymondcamden",
+    "publisher": "carlosrubio",
 	"license":"MIT",
 	"bugs": {
-		"url": "https://github.com/cfjedimaster/htmlescape-vscode/issues",
-		"email": "raymondcamden@gmail.com"
+		"url": "https://github.com/carlosrubio/TS2Snippet-vscode/issues",
+		"email": "carlos@rubioonline.es"
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/cfjedimaster/htmlescape-vscode.git"
+		"url": "https://github.com/carlosrubio/TS2Snippet-vscode.git"
 	},
-    "homepage": "https://github.com/cfjedimaster/htmlescape-vscode/blob/master/README.md",	
+    "homepage": "https://github.com/carlosrubio/TS2Snippet-vscode/blob/master/README.md",	
 	"categories": [
 		"Other"
 	],
@@ -21,14 +21,14 @@
         "vscode": "^0.10.7"
     },
     "activationEvents": [
-        "onCommand:extension.showHtmlEscape"
+        "onCommand:extension.showTSSnippet"
     ],
     "main": "./out/src/extension",
     "contributes": {
         "commands": [
             {
-                "command": "extension.showHtmlEscape",
-                "title": "Show Escaped HTML"
+                "command": "extension.showTSSnippet",
+                "title": "Show TS Snippet"
             }
         ]
     },
